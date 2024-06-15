@@ -1,11 +1,10 @@
 package com.example.menu.item;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,5 +27,12 @@ public class ItemController {
     public ResponseEntity<Item> find(@PathVariable("id") Long id) {
         Optional<Item> item = service.find(id);
         return ResponseEntity.of(item);
+    }
+
+    @PostMapping
+    public ResponseEntity<Item> create(@RequestBody Item item) {
+        Item created = service.create(item);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(location).body(created);
     }
 }
