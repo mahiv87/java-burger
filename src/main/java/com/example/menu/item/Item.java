@@ -14,4 +14,34 @@ public class Item {
         this.description = description;
         this.image = image;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Item updateWith(Item item) {
+        return new Item(
+                this.id,
+                item.name,
+                item.price,
+                item.description,
+                item.image
+        );
+    }
 }
