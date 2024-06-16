@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(origins = "https://dashboard.whatabyte.app")
 @RestController
 @RequestMapping("api/menu/items")
 public class ItemController {
