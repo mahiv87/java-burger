@@ -2,6 +2,7 @@ package com.example.menu.item;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,6 +37,7 @@ public class ItemController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('create:items")
     public ResponseEntity<Item> create(@Valid @RequestBody Item item) {
         Item created = service.create(item);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -46,6 +48,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('update:items")
     public ResponseEntity<Item> update(@PathVariable("id") Long id,@Valid @RequestBody Item updatedItem) {
         Optional<Item> updated = service.update(id, updatedItem);
 
@@ -62,6 +65,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('delete:items")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.ok("Item successfully removed");
