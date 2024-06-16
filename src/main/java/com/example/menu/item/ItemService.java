@@ -55,4 +55,8 @@ public class ItemService {
             return repository.save(updated);
         });
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
